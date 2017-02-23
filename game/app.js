@@ -47,6 +47,6 @@
         app.sceneManager.loadScene(new app.hallScene());
     }
 })();
-
+// cheche
 app.init();
 app.run();
