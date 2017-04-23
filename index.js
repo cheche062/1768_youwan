@@ -10,3 +10,6 @@ function* show() {
 console.log(show().next());
 console.log(show().next());
 console.log(show().next());
+
+
+var a = 10;
