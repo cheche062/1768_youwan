@@ -46,8 +46,9 @@
     app.run = function(){
         app.sceneManager.loadScene(new app.hallScene());
     }
+
+    // test
 })();
-// cheche
-// 170123testOne
+
 app.init();
 app.run();

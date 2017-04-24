@@ -20,6 +20,13 @@
             }
         }
 
+        //取消注册
+        this.unRegisterAction = function(key){
+            if(this.registedAction[key] != "undefined"){
+                delete this.registedAction[key];
+            }
+        }
+
         //触发
         this.dispatchAction = function(key,data,type){
             var callback = this.registedAction[key];

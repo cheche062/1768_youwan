@@ -13,7 +13,7 @@
 		_commKey : null,		//res加密公钥所用到的key
 		token : null,			//玩家token，在连接初始化时用于res生成公钥
 		jwtToken : null,		//res加密之后的玩家token，数据交互以此token为主
-		publicKey : null,		//res公钥		
+		publicKey : null,		//res公钥
 		connectionUrl : null,	//连接url
 		encryptedString : null,	//res加密后的验证字符串
 		isOpened : false		//连接是否已经初始化过

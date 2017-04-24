@@ -22,7 +22,7 @@
 
         //如果当前场景不为空，那么调用当前场景的退出功能，并且订阅当前场景退出事件，以便触发loadNextScene加载下一个需要加载的场景
         if(this.currentScene != null){
-            app.observer.subscribe(this.currentScene.sceneName + "_exit", this.loadNextScene.bind(this));
+            app.observer.subscribe(this.currentScene.sceneName + "_exit",this.loadNextScene.bind(this));
             this.currentScene.onExit();
         }
         else{
