@@ -47,7 +47,7 @@
         app.sceneManager.loadScene(new app.hallScene());
     }
 
-    // test
+    // test1768
 })();
 
 app.init();
