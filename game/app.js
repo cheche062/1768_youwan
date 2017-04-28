@@ -1,5 +1,11 @@
+var app = window.app;
+var cdnpath = window.cdnpath;
+var websocketurl = window.websocketurl;
+var publicKey = window.publicKey;
+
 //游戏基础模块
 (function(){
+
     //场景管理器
     app.sceneManager = null;
     //顶层观察者，各模块间可以通过观察者来通信
@@ -10,7 +16,7 @@
     //初始化
     app.init = function(){
         this.layaInit();
-        this.moduleInit();
+            this.moduleInit();
     }
 
     //游戏引擎初始化
@@ -29,8 +35,8 @@
 		Laya.stage.alignV = app.config.alignV;
 
         //设置basepath
-        Laya.URL.basePath = typeof cdnpath == "string" ? cdnpath : "";
-    }
+        Laya.URL.basePath = typeof cdnpath === "string" ? cdnpath : "";
+    };
 
     //基础模块初始化
     app.moduleInit = function(){
@@ -38,8 +44,8 @@
         app.observer = new app.observerModule();
         app.messageCenter = new app.messageCenterModule({
             websocketurl : websocketurl,
-            lib : typeof window.Primus == "undefined" ? "socketio" : "primus",//io就是socketio的namespace
-            publicKey : typeof publicKey == "undefined" ? "" : publicKey
+            lib : typeof window.Primus === "undefined" ? "socketio" : "primus",//io就是socketio的namespace
+            publicKey : typeof publicKey === "undefined" ? "" : publicKey
         });
     }
 
@@ -49,6 +55,8 @@
 
     // test1768
 })();
+
+app.scaleMode
 
 app.init();
 app.run();

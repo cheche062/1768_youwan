@@ -1,0 +1,28 @@
+{
+  // The plugin looks for a .jshintrc file in the same directory as the source
+  // file you're prettifying (or any directory above if it doesn't exist, or in
+  // your home folder if everything else fails) and uses those options along
+  // the default ones.
+
+  // Details: https://github.com/victorporof/Sublime-JSHint#using-your-own-jshintrc-options
+  // Example: https://github.com/jshint/jshint/blob/master/examples/.jshintrc
+  // Documentation: http://www.jshint.com/docs/options/
+  "asi": true,
+  "browser": true,
+  "bitwise": true,
+  "curly": true,
+  "devel": true,
+  "expr": true,
+  "immed": true,
+  "eqeqeq": true,
+  "esnext": true,
+  "noarg": true,
+  "node": true,
+  "undef": true,
+  "unused": true,
+  "noempty": true,
+  "strict": "implied",
+  "boss": false,
+  "maxerr": 20,
+  "globals": {"Laya": true}
+}
