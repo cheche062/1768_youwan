@@ -53,10 +53,11 @@ var publicKey = window.publicKey;
         app.sceneManager.loadScene(new app.hallScene());
     }
 
-    // test1768
-})();
 
-app.scaleMode
+    // 水果盛宴
+
+
+})();
 
 app.init();
 app.run();
