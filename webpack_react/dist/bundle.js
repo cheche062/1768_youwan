@@ -9802,18 +9802,30 @@ var Item = function (_React$Component) {
 	_inherits(Item, _React$Component);
 
 	function Item() {
+		var _ref;
+
 		_classCallCheck(this, Item);
 
-		return _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this));
+		for (var _len = arguments.length, arg = Array(_len), _key = 0; _key < _len; _key++) {
+			arg[_key] = arguments[_key];
+		}
+
+		return _possibleConstructorReturn(this, (_ref = Item.__proto__ || Object.getPrototypeOf(Item)).call.apply(_ref, [this].concat(arg)));
 	}
 
 	_createClass(Item, [{
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps() {
+			console.log('props改变了');
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
 				'span',
 				null,
-				'\u6211\u662Fitem'
+				'\u6211\u7684\u5E74\u9F84\u662F\uFF1A',
+				this.props.age
 			);
 		}
 	}]);
@@ -9829,7 +9841,7 @@ var List = function (_React$Component2) {
 
 		var _this2 = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this));
 
-		_this2.state = { dispaly: "show" };
+		_this2.state = { dispaly: "show", age: 0 };
 		return _this2;
 	}
 
@@ -9837,8 +9849,11 @@ var List = function (_React$Component2) {
 		key: 'clickHandle',
 		value: function clickHandle() {
 			this.setState({
-				dispaly: this.state.dispaly === 'show' ? 'hide' : 'show'
+				dispaly: this.state.dispaly === 'show' ? 'hide' : 'show',
+				age: this.state.age + 1
 			});
+
+			console.log(this.state.age);
 		}
 	}, {
 		key: 'render',
@@ -9847,12 +9862,12 @@ var List = function (_React$Component2) {
 				'div',
 				null,
 				_react2.default.createElement('input', { type: 'button', value: this.props.name, onClick: this.clickHandle.bind(this) }),
+				_react2.default.createElement(Item, { age: this.state.age }),
 				_react2.default.createElement(
 					'div',
 					{ className: "box " + this.state.dispaly },
 					_react2.default.createElement(_b2.default, null)
-				),
-				_react2.default.createElement(Item, null)
+				)
 			);
 		}
 	}]);
