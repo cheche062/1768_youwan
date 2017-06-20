@@ -9796,8 +9796,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// 
-
 var Item = function (_React$Component) {
 	_inherits(Item, _React$Component);
 
@@ -9824,7 +9822,7 @@ var Item = function (_React$Component) {
 			return _react2.default.createElement(
 				'span',
 				null,
-				'\u6211\u7684\u5E74\u9F84\u662F\uFF1A',
+				'\u6211\u662F\uFF1A',
 				this.props.age
 			);
 		}
@@ -9841,7 +9839,7 @@ var List = function (_React$Component2) {
 
 		var _this2 = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this));
 
-		_this2.state = { dispaly: "show", age: 0 };
+		_this2.state = { dispaly: "show", age: 0, fruitArr: ['apple', 'banana', 'oriange'] };
 		return _this2;
 	}
 
@@ -9850,19 +9848,23 @@ var List = function (_React$Component2) {
 		value: function clickHandle() {
 			this.setState({
 				dispaly: this.state.dispaly === 'show' ? 'hide' : 'show',
-				age: this.state.age + 1
+				age: this.state.age + 1,
+				fruitArr: this.state.fruitArr.concat(Math.random())
 			});
-
-			console.log(this.state.age);
 		}
 	}, {
 		key: 'render',
 		value: function render() {
+			var result = [];
+			this.state.fruitArr.forEach(function (item, index) {
+				result.push(_react2.default.createElement(Item, { age: item, key: index }));
+			});
+
 			return _react2.default.createElement(
 				'div',
 				null,
 				_react2.default.createElement('input', { type: 'button', value: this.props.name, onClick: this.clickHandle.bind(this) }),
-				_react2.default.createElement(Item, { age: this.state.age }),
+				result,
 				_react2.default.createElement(
 					'div',
 					{ className: "box " + this.state.dispaly },
