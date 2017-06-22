@@ -8,7 +8,7 @@
 
     //生产0-num范围的随机数
     utils.randomNumber = function(num){
-        return Math.floor(Math.random() * num);
+        return Math.round(Math.random() * num);
     }
 
     //登录
@@ -25,4 +25,19 @@
     utils.getStringLength = function(str){
         return ("" + str.replace(/[^\x00-\xff]/gi,"ox")).length;
     }
+
+    // 打乱数组
+    utils.confuseArr = function(arr){
+        var result = [];
+        var l = arr.length;
+
+        while(l--){
+            var index = Math.round(Math.random() * l);
+            result.push(arr.splice(index, 1)[0]);
+        }
+
+        return result;
+    }
+
+
 })();
