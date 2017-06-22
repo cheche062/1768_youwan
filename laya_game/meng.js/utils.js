@@ -30,7 +30,6 @@
     utils.confuseArr = function(arr){
         var result = [];
         var l = arr.length;
-
         while(l--){
             var index = Math.round(Math.random() * l);
             result.push(arr.splice(index, 1)[0]);
