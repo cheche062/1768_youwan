@@ -1,22 +1,59 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<script type="text/javascript" src="enjoyable/console.js"></script>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- <script type="text/javascript" src="enjoyable/console.js"></script> -->
 </head>
+
 <body>
-	
 </body>
-
 <script type="text/javascript">
-	
-	var arr = ['apple', 'banana', 'orange', 'ananas', 'strawberry']
+var _ = function(obj) {
+
+	if(obj instanceof _) {return obj};
+
+	if(!(this instanceof _)){return new _(obj); }
+
+    this._wrapped = obj;
+}
+
+_.prototype.map = function(callback) {
+
+    return _.map(this._wrapped, callback);
+
+};
+
+_.map = function(arr, callback) {
+    var result = [];
+
+    for (var i = 0; i < arr.length; i++) {
+        result.push(callback(arr[i], i));
+    }
+
+    return result;
+
+}
 
 
-	arr.forEach((item)=>{
-		console.log(item + '~');
-	})
+var arr = ['hehe', 'cheche', 'dodo'];
+var cb = (item, index) => {
+    return '#' + index + item;
+}
+
+var result1 = _.map(arr, cb);
+
+var result2 = new _(arr).map(cb);
+
+console.log(result1);
+console.log(result2);
+
+
+
+
+
+
 
 </script>
 
