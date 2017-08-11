@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import List from './js/a.js';
+import MovieHouse from './js/170701_ticket/js/movieHouse.js';
 
+require('./170701_ticket/css/style.css');
 ReactDOM.render(
-		<List name="车车"/>,
+		<MovieHouse allNum=20/>,
 		document.getElementById('app')
 	)
 

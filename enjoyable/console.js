@@ -55,3 +55,4 @@ window.log = console.log = (function (originFunc) {
     originFunc.apply(console, resArgs)
   }
 })(console.log)
+
