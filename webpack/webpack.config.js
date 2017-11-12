@@ -15,7 +15,7 @@ module.exports = {
             loader: 'style-loader!css-loader'
         }, {
             test: /\.js$/,
-            loader: 'react-hot-loader!babel-loader',
+            loader: 'babel-loader',
             exclude: /node_modules/ //排除项目
         }]
     }

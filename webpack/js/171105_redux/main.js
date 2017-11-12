@@ -38,8 +38,6 @@ let unsubscribe2 = store.subscribe(() => {
 })
 
 
-
-
 Object.assign(window, { store, addTodo, toggleTodo, setName, setAge });
 
 // 停止监听 state 更新
