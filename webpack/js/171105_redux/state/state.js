@@ -1,130 +1,136 @@
-const blogPosts = [{
-        id: "post1",
-        author: { username: "user1", name: "User 1" },
-        body: "......",
-        comments: [{
-            id: "comment1",
-            author: { username: "user2", name: "User 2" },
-            comment: ".....",
-        }, {
-            id: "comment2",
-            author: { username: "user3", name: "User 3" },
-            comment: ".....",
-        }]
-    }, {
-        id: "post2",
-        author: { username: "user2", name: "User 2" },
-        body: "......",
-        comments: [{
-            id: "comment3",
-            author: { username: "user3", name: "User 3" },
-            comment: ".....",
-        }, {
-            id: "comment4",
-            author: { username: "user1", name: "User 1" },
-            comment: ".....",
-        }, {
-            id: "comment5",
-            author: { username: "user3", name: "User 3" },
-            comment: ".....",
-        }]
-    }
-    // and repeat many times
-]
+import posts from "./postsReducer";
+import comments from "./commentsReducer";
+import dotProp from "dot-prop-immutable";
+import { combineReducers } from "redux";
+import reduceReducers from "reduce-reducers";
+
+const combinedReducer = combineReducers({
+    posts,
+    comments
+});
 
 
-{
-    posts: {
-        byId: {
-            "post1": {
-                id: "post1",
-                author: "user1",
-                body: "......",
-                comments: ["comment1", "comment2"]
-            },
-            "post2": {
-                id: "post2",
-                author: "user2",
-                body: "......",
-                comments: ["comment3", "comment4", "comment5"]
-            }
-        },
-        allIds: ["post1", "post2"]
-    },
-    comments: {
-        byId: {
-            "comment1": {
-                id: "comment1",
-                author: "user2",
-                comment: ".....",
-            },
-            "comment2": {
-                id: "comment2",
-                author: "user3",
-                comment: ".....",
-            },
-            "comment3": {
-                id: "comment3",
-                author: "user3",
-                comment: ".....",
-            },
-            "comment4": {
-                id: "comment4",
-                author: "user1",
-                comment: ".....",
-            },
-            "comment5": {
-                id: "comment5",
-                author: "user3",
-                comment: ".....",
-            },
-        },
-        allIds: ["comment1", "comment2", "comment3", "commment4", "comment5"]
-    },
-    users: {
-        byId: {
-            "user1": {
-                username: "user1",
-                name: "User 1",
-            },
-            "user2": {
-                username: "user2",
-                name: "User 2",
-            },
-            "user3": {
-                username: "user3",
-                name: "User 3",
-            }
-        },
-        allIds: ["user1", "user2", "user3"]
+function addComment(state, action) {
+    const { payload } = action;
+    const { postId, commentId, commentText } = payload;
+
+    // State here is the entire combined state
+    const updatedWithPostState = dotProp.set(
+        state,
+        `posts.byId.${postId}.comments`,
+        comments => comments.concat(commentId)
+    );
+
+    const updatedWithCommentsTable = dotProp.set(
+        updatedWithPostState,
+        `comments.byId.${commentId}`, { id: commentId, text: commentText }
+    );
+
+    const updatedWithCommentsList = dotProp.set(
+        updatedWithCommentsTable,
+        `comments.allIds`,
+        allIds => allIds.concat(commentId);
+    );
+
+    return updatedWithCommentsList;
+}
+
+const featureReducers = createReducer({}, {
+    ADD_COMMENT: addComment,
+});
+
+const rootReducer = reduceReducers(combinedReducer, featureReducers);
+
+
+
+
+
+// --------------------------------------------------------------------------------------------------
+function counter(state = 0, action) {
+    switch (action.type) {
+        case 'INCREMENT':
+            return state + 1;
+        case 'DECREMENT':
+            return state - 1;
+        default:
+            return state;
     }
 }
 
+function createNamedWrapperReducer(reducerFunction, reducerName) {
+    return (state, action) => {
+        const { name } = action;
+        const isInitializationCall = state === undefined;
+        if (name !== reducerName && !isInitializationCall) return state;
 
-{
-    entities: {
-        authors : { byId : {}, allIds : [] },
-        books : { byId : {}, allIds : [] },
-        authorBook : {
-            byId : {
-                1 : {
-                    id : 1,
-                    authorId : 5,
-                    bookId : 22
-                },
-                2 : {
-                    id : 2,
-                    authorId : 5,
-                    bookId : 15,
-                }
-                3 : {
-                    id : 3,
-                    authorId : 42,
-                    bookId : 12
-                }
-            },
-            allIds : [1, 2, 3]
+        return reducerFunction(state, action);
+    }
+}
 
+(state, action) => {
+    const { name } = action;
+    const isInitializationCall = state !== undefined;
+    if (name !== reducerName && isInitializationCall) return state;
+
+    let reducer = (state = 0, action) => {
+        switch (action.type) {
+            case 'INCREMENT':
+                return state + 1;
+            case 'DECREMENT':
+                return state - 1;
+            default:
+                return state;
         }
     }
+
+    return reducer(state, action);
 }
+
+const rootReducer = combineReducers({
+    counterA: createNamedWrapperReducer(counter, 'A'),
+    counterB: createNamedWrapperReducer(counter, 'B'),
+    counterC: createNamedWrapperReducer(counter, 'C'),
+});
+
+
+// --------------------------------------------------------------------------------------------------
+function createFilteredReducer(reducerFunction, reducerPredicate) {
+    return (state, action) => {
+        const isInitializationCall = state === undefined;
+        const shouldRunWrappedReducer = reducerPredicate(action) || isInitializationCall;
+        return shouldRunWrappedReducer ? reducerFunction(state, action) : state;
+    }
+}
+
+const rootReducer = combineReducers({
+            // 检查后缀
+            counterA: createFilteredReducer(counter, action => action.type.endsWith('_A')),
+            // 检查 action 中的额外数据
+            counterB: createFilteredReducer(counter, action => action.name === 'B'),
+            // 响应所有的 'INCREMENT' action，但不响应 'DECREMENT'
+            counterC: createFilteredReducer(counter, action => action.type === 'INCREMENT')
+        };
+
+
+
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addTodo } from './TodoActions'
+
+class AddTodo extends Component {
+  handleClick() {
+    // 生效！
+    this.props.dispatch(addTodo('Fix the issue'))
+  }
+
+  render() {
+    return (
+      <button onClick={() => this.handleClick()}>
+        Add
+      </button>
+    )
+  }
+}
+
+// 除了 state，`connect` 还把 `dispatch` 放到 props 里。
+export default connect()(AddTodo)

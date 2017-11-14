@@ -1,0 +1,13 @@
+<res>
+   <item name="images/animate" type="" compress="0" pack="2" quality="80" props="" picType="0"/>
+   <item name="images/font" type="" compress="0" pack="2" quality="80" props="" picType="0"/>
+   <item name="images/pop/match/bg_content.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=15,12,19,12" picType="0"/>
+   <item name="images/room/room_match/txt_bg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=21,21,25,15" picType="0"/>
+   <item name="images/load/loadbar.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,24,0,20" picType="0"/>
+   <item name="images/load/logo.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0"/>
+   <item name="images/load/barbg.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0"/>
+   <item name="images/load/fangcm.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0"/>
+   <item name="images/load/morebg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=25,25,25,25" picType="0"/>
+   <item name="images/pop/tips/bg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=39,53,89,54" picType="0"/>
+   <item name="images/pop/tips/bg02.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=140,71,105,71" picType="0"/>
+</res>

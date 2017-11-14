@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>百万美金</title>
+    <meta name='viewport' content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no' />
+    <meta name='apple-mobile-web-app-capable' content='yes' />
+    <meta name='full-screen' content='true' />
+    <meta name='screen-orientation' content='portrait' />
+    <meta name='x5-fullscreen' content='true' />
+    <meta name='360-fullscreen' content='true' />
+    <meta http-equiv='expires' content='0' />
+</head>
+<script type="text/javascript">
+// var DEV_URL = 'http://yx85-wap.stg3.1768.com';
+var DEV_URL = 'http://9test9-wap.stg3.1768.com';
+var cdnpath = location.origin + '/bin/';
+// var websocketurl = "https://nodejs-dev.games.1768.com:7018/";
+var websocketurl = "https://nodejs-test.games.1768.com:8484/";
+var GM = {
+    userLogged: true,
+    gameId: 39998,
+    userId: 1234567,
+    isCall_out: 1,
+    noticeStatus_out: function(cb) {
+        cb({
+            isShowNotice: true,
+            isShowRedPoint: true,
+        })
+    }
+};
+
+// 玩家id
+if(location.hash.slice(1) === '1'){
+    var userId = GM.user_id = "2037682960";
+    // var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIyMDM3NjgyOTYwIiwiZXhwIjoxNTExMzM2MDQwfQ.qXxb3IbGtVRh-eVyY2hYV3qeSy6SOzmWLYeMXlyMhBQ";
+    var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIyMDM3NjgyOTYwIiwiZXhwIjoxNTEyNjI3NzUyfQ.3bxoMhvOHEpICLIS4gQuGVrdMHJWm0co8G9RL_JsuHo";
+
+}else{
+    var userId = GM.user_id = "2037610954";
+    var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIyMDM3NjEwOTU0IiwiZXhwIjoxNTExMzM5NDM3fQ.TkOm6RRwf1CT6MlbeN59jxYZfrX6vIC1GihvTT6Kjxw";
+}
+
+var gameId = parseInt("39998");
+var userId = parseInt("1234567");
+var chargeToken = "kp7QAg6B+IgNsAsYUy52nibyuL5Gs5eKDbN7NWseQv4k7TRBBwoCwBfcqntE9orV5jCZ7UWs4TUEp7ighUIbOgEcE1qPzbxGiCINy92JefQ=";
+// var chargeToken = "kp7QAg6B+IgNsAsYUy52nibyuL5Gs5eKDbN7NWseQv4k7TRBBwoCwBfcqntE9orV5jCZ7UWs4TUEp7ighUIbOhovrH6AoCk28nQTDwmN4X4=";
+var tradeName = "百万美金";
+var gameOrderId = "9767fcbb7d06050cbbd6e126e1349ad2";
+var gamehallAndroidBackUrl = "/?act=index";
+var staticVertion = '201710171703';
+var GAME_VERSION = "1";
+
+//支付完成回调地址
+var redirect_uri = "/?act=milliondollar";
+//支付平台类型
+var platform = "";
+var publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvMCkMUkh7AJqwUAecmgHZwQbiR4u7ZdOhuzoxZEhAZUjrBarfHvttwfKLFM1r2uXvuu2rrYKjpa1iUV2A4rLeHlPnT07IeelAFiUKbjOaqS1K1ByTjIFCz466B8bMRYIOA6Za5j4OcVaQvpgXWZicshHssLFCeYnj2f5XAYQFiS9It6lJ0gGJWT2YSD6WxMAV1JRCpLJE0rtV5egAqAp9UImsZDjE2mVHXCTjlQKsdi+8jRJatZFLwDqOU0RGlgmwcjdg6u511xWWaQX1G3IhSMRAjrY4FDxxYRKBGrkNBPAp34NodGWL1iEHD+GdR3wRvbIAnLNU0XDf2bEenMPzwIDAQAB";
+</script>
+
+<script type="text/javascript" src="../src/socket/zepto-1.1.6.js"></script>
+<script type="text/javascript" src="../src/socket/main.js"></script>
+<script type="text/javascript" src="../src/socket/polyfill.min.js"></script>
+
+<!-- 通信 -->
+<script type="text/javascript" src="../src/socket/jsencrypt.min.js"></script>
+<script type="text/javascript" src="../src/socket/crypto-js.js"></script>
+<script src="https://nodejs-test.games.1768.com:8484/primus/primus.js?v=201710171703"></script>
+
+<body>
+    <!-- laya core js start -->
+    <script type="text/javascript" src="libs/laya.core.js"></script>
+    <script type="text/javascript" src="libs/laya.webgl.js"></script>
+    <script type="text/javascript" src="libs/laya.ani.js"></script>
+    <script type="text/javascript" src="libs/laya.filter.js"></script>
+    <script type="text/javascript" src="libs/laya.ui.js"></script>
+    <!-- laya core js end -->
+    <!-- ui -->
+    <script type="text/javascript" src="../src/ui/layaUI.max.all.js"></script>
+    <!-- main -->
+    <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>
