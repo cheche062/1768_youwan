@@ -397,27 +397,6 @@ var Laya=window.Laya=(function(window,document){
 	})()
 
 
-	//class HelloLayabox
-	var HelloLayabox=(function(){
-		function HelloLayabox(){
-			Laya.init(600,300);
-			var txt=new Text();
-			txt.text="Hello Layabox";
-			txt.color='#FF0000';
-			txt.fontSize=66;
-			txt.stroke=5;
-			txt.strokeColor='#FFFFFF';
-			txt.bold=false;
-			txt.pos(60,100);
-			Laya.stage.bgColor='#23238E';
-			Laya.stage.addChild(txt);
-		}
-
-		__class(HelloLayabox,'HelloLayabox');
-		return HelloLayabox;
-	})()
-
-
 	/**
 	*<code>EventDispatcher</code> 类是可调度事件的所有类的基类。
 	*/
@@ -708,6 +687,23 @@ var Laya=window.Laya=(function(window,document){
 		Handler._pool=[];
 		Handler._gid=1;
 		return Handler;
+	})()
+
+
+	/**
+	*...
+	*@author
+	*/
+	//class Main
+	var Main=(function(){
+		function Main(){
+			Laya.init(480,852);
+			var bg=new BackGround();
+			Laya.stage.addChild(bg);
+		}
+
+		__class(Main,'Main');
+		return Main;
 	})()
 
 
@@ -8587,198 +8583,6 @@ var Laya=window.Laya=(function(window,document){
 
 
 	/**
-	*@private
-	*<code>Resource</code> 资源存取类。
-	*/
-	//class laya.resource.Resource extends laya.events.EventDispatcher
-	var Resource=(function(_super){
-		function Resource(){
-			//this.__loaded=false;
-			//this._memorySize=0;
-			//this._id=0;
-			//this._url=null;
-			//this._released=false;
-			//this._disposed=false;
-			//this._resourceManager=null;
-			//this._lastUseFrameCount=0;
-			//this.lock=false;
-			//this.name=null;
-			Resource.__super.call(this);
-			this._$1__id=++Resource._uniqueIDCounter;
-			this.__loaded=true;
-			this._disposed=false;
-			Resource._loadedResources.push(this);
-			this._released=true;
-			this.lock=false;
-			this._memorySize=0;
-			this._lastUseFrameCount=-1;
-			(ResourceManager.currentResourceManager)&& (ResourceManager.currentResourceManager.addResource(this));
-		}
-
-		__class(Resource,'laya.resource.Resource',_super);
-		var __proto=Resource.prototype;
-		Laya.imps(__proto,{"laya.resource.ICreateResource":true,"laya.resource.IDispose":true})
-		/**
-		*@private
-		*/
-		__proto._endLoaded=function(){
-			this.__loaded=true;
-			this.event("loaded",this);
-		}
-
-		/**重新创建资源,override it，同时修改memorySize属性、处理startCreate()和compoleteCreate()方法。*/
-		__proto.recreateResource=function(){
-			this.completeCreate();
-		}
-
-		/**销毁资源，override it,同时修改memorySize属性。*/
-		__proto.detoryResource=function(){}
-		/**
-		*激活资源，使用资源前应先调用此函数激活。
-		*@param force 是否强制创建。
-		*/
-		__proto.activeResource=function(force){
-			(force===void 0)&& (force=false);
-			this._lastUseFrameCount=Stat.loopCount;
-			if (!this._disposed && (this._released || force))
-				this.recreateResource();
-		}
-
-		/**
-		*释放资源。
-		*@param force 是否强制释放。
-		*@return 是否成功释放。
-		*/
-		__proto.releaseResource=function(force){
-			(force===void 0)&& (force=false);
-			if (!force && this.lock)
-				return false;
-			if (!this._released || force){
-				this.detoryResource();
-				this._released=true;
-				this._lastUseFrameCount=-1;
-				this.event("released",this);
-				return true;
-				}else {
-				return false;
-			}
-		}
-
-		/**
-		*@private
-		*/
-		__proto.onAsynLoaded=function(url,data,params){
-			throw new Error("Resource: must override this function!");
-		}
-
-		/**
-		*<p>彻底处理资源，处理后不能恢复。</p>
-		*<p><b>注意：</b>会强制解锁清理。</p>
-		*/
-		__proto.dispose=function(){
-			if (this._disposed)
-				return;
-			if (this._resourceManager!==null)
-				this._resourceManager.removeResource(this);
-			this._disposed=true;
-			this.lock=false;
-			this.releaseResource();
-			var index=Resource._loadedResources.indexOf(this);
-			(index!==-1)&& (Resource._loadedResources.splice(index,1));
-			Loader.clearRes(this._url);
-		}
-
-		/**完成资源激活。*/
-		__proto.completeCreate=function(){
-			this._released=false;
-			this.event("recovered",this);
-		}
-
-		/**
-		*@private
-		*/
-		/**
-		*占用内存尺寸。
-		*/
-		__getset(0,__proto,'memorySize',function(){
-			return this._memorySize;
-			},function(value){
-			var offsetValue=value-this._memorySize;
-			this._memorySize=value;
-			this.resourceManager && this.resourceManager.addSize(offsetValue);
-		});
-
-		/**
-		*@private
-		*/
-		__getset(0,__proto,'_loaded',null,function(value){
-			this.__loaded=value;
-		});
-
-		/**
-		*获取是否已加载完成。
-		*/
-		__getset(0,__proto,'loaded',function(){
-			return this.__loaded;
-		});
-
-		/**
-		*获取唯一标识ID,通常用于识别。
-		*/
-		__getset(0,__proto,'id',function(){
-			return this._$1__id;
-		});
-
-		/**
-		*资源管理员。
-		*/
-		__getset(0,__proto,'resourceManager',function(){
-			return this._resourceManager;
-		});
-
-		/**
-		*设置资源的URL地址。
-		*@param value URL地址。
-		*/
-		/**
-		*获取资源的URL地址。
-		*@return URL地址。
-		*/
-		__getset(0,__proto,'url',function(){
-			return this._url;
-			},function(value){
-			this._url=value;
-		});
-
-		/**
-		*是否已处理。
-		*/
-		__getset(0,__proto,'disposed',function(){
-			return this._disposed;
-		});
-
-		/**
-		*是否已释放。
-		*/
-		__getset(0,__proto,'released',function(){
-			return this._released;
-		});
-
-		Resource.getLoadedResourceByIndex=function(index){
-			return Resource._loadedResources[index];
-		}
-
-		Resource.getLoadedResourcesCount=function(){
-			return Resource._loadedResources.length;
-		}
-
-		Resource._uniqueIDCounter=0;
-		Resource._loadedResources=[];
-		return Resource;
-	})(EventDispatcher)
-
-
-	/**
 	*<code>Node</code> 类是可放在显示列表中的所有对象的基类。该显示列表管理 Laya 运行时中显示的所有对象。使用 Node 类排列显示列表中的显示对象。Node 对象可以有子显示对象。
 	*/
 	//class laya.display.Node extends laya.events.EventDispatcher
@@ -9321,6 +9125,198 @@ var Laya=window.Laya=(function(window,document){
 		Node.NOTICE_DISPLAY=0x1;
 		Node.MOUSEENABLE=0x2;
 		return Node;
+	})(EventDispatcher)
+
+
+	/**
+	*@private
+	*<code>Resource</code> 资源存取类。
+	*/
+	//class laya.resource.Resource extends laya.events.EventDispatcher
+	var Resource=(function(_super){
+		function Resource(){
+			//this.__loaded=false;
+			//this._memorySize=0;
+			//this._id=0;
+			//this._url=null;
+			//this._released=false;
+			//this._disposed=false;
+			//this._resourceManager=null;
+			//this._lastUseFrameCount=0;
+			//this.lock=false;
+			//this.name=null;
+			Resource.__super.call(this);
+			this._$1__id=++Resource._uniqueIDCounter;
+			this.__loaded=true;
+			this._disposed=false;
+			Resource._loadedResources.push(this);
+			this._released=true;
+			this.lock=false;
+			this._memorySize=0;
+			this._lastUseFrameCount=-1;
+			(ResourceManager.currentResourceManager)&& (ResourceManager.currentResourceManager.addResource(this));
+		}
+
+		__class(Resource,'laya.resource.Resource',_super);
+		var __proto=Resource.prototype;
+		Laya.imps(__proto,{"laya.resource.ICreateResource":true,"laya.resource.IDispose":true})
+		/**
+		*@private
+		*/
+		__proto._endLoaded=function(){
+			this.__loaded=true;
+			this.event("loaded",this);
+		}
+
+		/**重新创建资源,override it，同时修改memorySize属性、处理startCreate()和compoleteCreate()方法。*/
+		__proto.recreateResource=function(){
+			this.completeCreate();
+		}
+
+		/**销毁资源，override it,同时修改memorySize属性。*/
+		__proto.detoryResource=function(){}
+		/**
+		*激活资源，使用资源前应先调用此函数激活。
+		*@param force 是否强制创建。
+		*/
+		__proto.activeResource=function(force){
+			(force===void 0)&& (force=false);
+			this._lastUseFrameCount=Stat.loopCount;
+			if (!this._disposed && (this._released || force))
+				this.recreateResource();
+		}
+
+		/**
+		*释放资源。
+		*@param force 是否强制释放。
+		*@return 是否成功释放。
+		*/
+		__proto.releaseResource=function(force){
+			(force===void 0)&& (force=false);
+			if (!force && this.lock)
+				return false;
+			if (!this._released || force){
+				this.detoryResource();
+				this._released=true;
+				this._lastUseFrameCount=-1;
+				this.event("released",this);
+				return true;
+				}else {
+				return false;
+			}
+		}
+
+		/**
+		*@private
+		*/
+		__proto.onAsynLoaded=function(url,data,params){
+			throw new Error("Resource: must override this function!");
+		}
+
+		/**
+		*<p>彻底处理资源，处理后不能恢复。</p>
+		*<p><b>注意：</b>会强制解锁清理。</p>
+		*/
+		__proto.dispose=function(){
+			if (this._disposed)
+				return;
+			if (this._resourceManager!==null)
+				this._resourceManager.removeResource(this);
+			this._disposed=true;
+			this.lock=false;
+			this.releaseResource();
+			var index=Resource._loadedResources.indexOf(this);
+			(index!==-1)&& (Resource._loadedResources.splice(index,1));
+			Loader.clearRes(this._url);
+		}
+
+		/**完成资源激活。*/
+		__proto.completeCreate=function(){
+			this._released=false;
+			this.event("recovered",this);
+		}
+
+		/**
+		*@private
+		*/
+		/**
+		*占用内存尺寸。
+		*/
+		__getset(0,__proto,'memorySize',function(){
+			return this._memorySize;
+			},function(value){
+			var offsetValue=value-this._memorySize;
+			this._memorySize=value;
+			this.resourceManager && this.resourceManager.addSize(offsetValue);
+		});
+
+		/**
+		*@private
+		*/
+		__getset(0,__proto,'_loaded',null,function(value){
+			this.__loaded=value;
+		});
+
+		/**
+		*获取是否已加载完成。
+		*/
+		__getset(0,__proto,'loaded',function(){
+			return this.__loaded;
+		});
+
+		/**
+		*获取唯一标识ID,通常用于识别。
+		*/
+		__getset(0,__proto,'id',function(){
+			return this._$1__id;
+		});
+
+		/**
+		*资源管理员。
+		*/
+		__getset(0,__proto,'resourceManager',function(){
+			return this._resourceManager;
+		});
+
+		/**
+		*设置资源的URL地址。
+		*@param value URL地址。
+		*/
+		/**
+		*获取资源的URL地址。
+		*@return URL地址。
+		*/
+		__getset(0,__proto,'url',function(){
+			return this._url;
+			},function(value){
+			this._url=value;
+		});
+
+		/**
+		*是否已处理。
+		*/
+		__getset(0,__proto,'disposed',function(){
+			return this._disposed;
+		});
+
+		/**
+		*是否已释放。
+		*/
+		__getset(0,__proto,'released',function(){
+			return this._released;
+		});
+
+		Resource.getLoadedResourceByIndex=function(index){
+			return Resource._loadedResources[index];
+		}
+
+		Resource.getLoadedResourcesCount=function(){
+			return Resource._loadedResources.length;
+		}
+
+		Resource._uniqueIDCounter=0;
+		Resource._loadedResources=[];
+		return Resource;
 	})(EventDispatcher)
 
 
@@ -13583,6 +13579,43 @@ var Laya=window.Laya=(function(window,document){
 
 
 	/**
+	*...
+	*@author ...
+	*/
+	//class BackGround extends laya.display.Sprite
+	var BackGround=(function(_super){
+		function BackGround(){
+			this.bg1=null;
+			this.bg2=null;
+			BackGround.__super.call(this);
+			this.init();
+			Laya.timer.frameLoop(1,this,this.onloop);
+		}
+
+		__class(BackGround,'BackGround',_super);
+		var __proto=BackGround.prototype;
+		__proto.init=function(){
+			this.bg1=new Sprite();
+			this.bg1.loadImage("war/background.png");
+			this.addChild(this.bg1);
+			this.bg2=new Sprite();
+			this.bg2.loadImage("war/background.png");
+			this.bg2.pos(0,-852);
+			this.addChild(this.bg2);
+		}
+
+		__proto.onloop=function(){
+			this.y+=1;
+			if(this.y >=852){
+				this.y=0;
+			}
+		}
+
+		return BackGround;
+	})(Sprite)
+
+
+	/**
 	*<p> <code>Text</code> 类用于创建显示对象以显示文本。</p>
 	*<p>
 	*注意：如果运行时系统找不到设定的字体，则用系统默认的字体渲染文字，从而导致显示异常。(通常电脑上显示正常，在一些移动端因缺少设置的字体而显示异常)。
@@ -15759,6 +15792,6 @@ var Laya=window.Laya=(function(window,document){
 
 
 	Laya.__init([LoaderManager,EventDispatcher,Render,Browser,Timer,LocalStorage]);
-	new HelloLayabox();
+	new Main();
 
 })(window,document,Laya);
