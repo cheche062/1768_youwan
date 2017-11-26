@@ -1,0 +1,5 @@
+1,0.00,,0,Project command:d:\gitHub\git_begin\laya_game\as3Laya/LayaUISample.as3proj;iflash=false;windowshow=false;chromerun=false
+Project configuration:d:\gitHub\git_begin\laya_game\as3Laya/LayaUISample.as3proj.
+1,0.00,,0,output file:LayaUISample
+1,0.00,,0,output path:d:/gitHub/git_begin/laya_game/as3Laya/bin/h5/
+7,0.00,,0,Read FB:d:/gitHub/git_begin/laya_game/as3Laya/LayaUISample.as3proj
