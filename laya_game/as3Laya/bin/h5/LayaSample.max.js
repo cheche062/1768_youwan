@@ -700,10 +700,33 @@ var Laya=window.Laya=(function(window,document){
 			Laya.init(480,852);
 			var bg=new BackGround();
 			Laya.stage.addChild(bg);
+			var test=new Test();
+			console.log(test.showStatus());
 		}
 
 		__class(Main,'Main');
 		return Main;
+	})()
+
+
+	/**
+	*...
+	*@author ...
+	*/
+	//class Test
+	var Test=(function(){
+		function Test(){
+			this.status=null;
+			this.status='hello';
+		}
+
+		__class(Test,'Test');
+		var __proto=Test.prototype;
+		__proto.showStatus=function(){
+			return this.status;
+		}
+
+		return Test;
 	})()
 
 

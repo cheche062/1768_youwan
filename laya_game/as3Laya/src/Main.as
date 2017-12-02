@@ -12,6 +12,13 @@ package
 
 			var bg:BackGround = new BackGround();
 			Laya.stage.addChild(bg);
+			
+			
+			
+			var test: Test = new Test();
+			
+			
+			console.log(test.showStatus);
 
 			
 		}
