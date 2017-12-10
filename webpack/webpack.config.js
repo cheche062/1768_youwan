@@ -4,19 +4,23 @@ module.exports = {
         filename: 'bundle.js', //出口文件
         path: __dirname + '/dist'
     },
-    devtool: 'source-map',
-    devServer: {
-        port: 8088,
-        inline: true
-    },
+    devtool: 'inline-source-map',
     module: {
         loaders: [{
-            test: /\.css$/,
-            loader: 'style-loader!css-loader'
-        }, {
-            test: /\.js$/,
-            loader: 'babel-loader',
-            exclude: /node_modules/ //排除项目
-        }]
-    }
+                test: /\.css$/,
+                loader: 'style-loader!css-loader'
+            }, {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/ //排除项目
+            },
+            {
+                test: /\.tsx?$/,
+                loader: "ts-loader"
+            }
+        ]
+    },
+    resolve: {
+        extensions: [".tsx", ".ts", ".js"]
+    },
 }

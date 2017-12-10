@@ -1,3 +1,5 @@
-import './js/171105_redux/main.js';
+import './js/171210_TypeScript/main';
 
+import Immutable from "immutable";
 
+console.log("完成")
