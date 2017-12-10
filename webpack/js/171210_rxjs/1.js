@@ -1,5 +1,9 @@
-// import Rx from 'rxjs/Rx';
-// import Immutable from 'immutable';
-var Immutable = require('immutable');
+var Rx = require('rxjs/Rx');
 
-console.log(Immutable);
+let foo = Rx.Observable.create(observer => {
+    console.log('Hello');
+    observer.next(42);
+});
+
+foo.subscribe(x => console.log(x));
+foo.subscribe(y => console.log(y));
