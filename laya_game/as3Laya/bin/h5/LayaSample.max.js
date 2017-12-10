@@ -701,7 +701,7 @@ var Laya=window.Laya=(function(window,document){
 			var bg=new BackGround();
 			Laya.stage.addChild(bg);
 			var test=new Test();
-			console.log(test.showStatus());
+			console.log(test.showStatus);
 		}
 
 		__class(Main,'Main');

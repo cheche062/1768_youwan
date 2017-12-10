@@ -11,7 +11,7 @@ package
 		private var bg1: Sprite;
 		private var bg2: Sprite;
 
-		public function BackGround() 
+		public function BackGround()
 		{
 			this.init();
 

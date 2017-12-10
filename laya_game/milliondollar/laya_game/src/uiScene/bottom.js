@@ -93,6 +93,7 @@ export default class BottomUIView extends bottomUI {
 
                 this.renderStartBtnStatus('auto', i);
             }
+
         };
         this.autoplay_box.addChild(new OptionsUIView(options));
 

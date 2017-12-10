@@ -11,9 +11,9 @@ import RoomScene from '../uiScene/room';
 // 进房间
 function enterRoom(messageCenter) {
     let roomscene = RoomScene.getInstance(messageCenter);
-    
+
     // 直接进房间
-    if(sceneManager.currentScene !== roomscene){
+    if (sceneManager.currentScene !== roomscene) {
         sceneManager.loadScene(roomscene);
     }
 }
@@ -39,7 +39,7 @@ function conError(data) {
 let param = {
     websocketurl: window.websocketurl,
     lib: typeof window.Primus === "undefined" ? "socketio" : "primus", //io就是socketio的namespace    //是false
-    publicKey: typeof window.publicKey === "undefined" ? "" : window.publicKey,   //是false
+    publicKey: typeof window.publicKey === "undefined" ? "" : window.publicKey, //是false
     token: window.token,
     ajaxUrl: AJAX_URL,
     endCallBack: () => {
@@ -57,7 +57,7 @@ let param = {
         }
     },
     // 打印信息
-    logInfo: (parsedData)=>{
+    logInfo: (parsedData) => {
         // 公告不展开
         if (parsedData.cmd === "bet") {
             UTILS.log("接收数据：===>", parsedData.cmd, JSON.stringify(parsedData, null, 4));
@@ -70,8 +70,8 @@ let param = {
 }
 
 // 本地
-if(GAME_CONFIG.localStatus){
-    for(let key in param.ajaxUrl){
+if (GAME_CONFIG.localStatus) {
+    for (let key in param.ajaxUrl) {
         param.ajaxUrl[key] = window.DEV_URL + param.ajaxUrl[key];
     }
 }
@@ -109,5 +109,3 @@ export function setViewCenter() {
         currentView.height = _height;
     }
 }
-
-

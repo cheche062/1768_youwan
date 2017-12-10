@@ -12,6 +12,7 @@ export default class AudioMudule {
 
     static getInstance() {
         return this.instance || new this();
+
     }
 
     init() {
@@ -51,10 +52,10 @@ export default class AudioMudule {
         }
     }
 
-    changeVoiceState(bool){
-        if(!bool){
+    changeVoiceState(bool) {
+        if (!bool) {
             this.setMuted();
-        }else{
+        } else {
             this.setMutedNot();
         }
     }
