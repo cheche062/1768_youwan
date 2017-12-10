@@ -9,7 +9,7 @@ export default class Person{
      * showName
      */
     public show() {
-        console.log('我的名字叫： ', this.name);
+        console.log('我的名字叫999999： ', this.name);
     }
 }
 

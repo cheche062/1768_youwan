@@ -5,6 +5,10 @@ module.exports = {
         path: __dirname + '/dist'
     },
     devtool: 'inline-source-map',
+    devServer: {
+        port: 8080,
+        inline: true
+    },
     module: {
         loaders: [{
                 test: /\.css$/,
@@ -22,5 +26,5 @@ module.exports = {
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"]
-    },
+    }
 }

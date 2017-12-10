@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack -wd"
+        "dev": "webpack -wd",
+        "start": "webpack-dev-server --progress --inline --content-base"
     },
     "author": "",
     "license": "ISC",
