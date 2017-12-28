@@ -1,7 +1,8 @@
+import querystring = require('querystring');
+
 var sayHello = (name:string) => {
     console.log("Hello ", name);
 }
-
 
 function timeout(ms:any) {
     return new Promise((resolve, reject) => {
@@ -16,4 +17,4 @@ timeout(1000).then((value) => {
 
 
 sayHello("cheche");
-console.log("typescript")
+console.log(querystring);
