@@ -1,5 +1,19 @@
-import Child from './src/Child';
+var sayHello = (name:string) => {
+    console.log("Hello ", name);
+}
 
-var p1:Child = new Child("cheche", 20);
 
-p1.show();
+function timeout(ms:any) {
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, ms, 'done');
+    });
+}
+
+timeout(1000).then((value) => {
+    console.log(value);
+});
+
+
+
+sayHello("cheche");
+console.log("typescript")

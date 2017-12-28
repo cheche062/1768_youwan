@@ -1,5 +1,8 @@
 "use strict";
 exports.__esModule = true;
+/**
+ * person
+ */
 var Person = /** @class */ (function () {
     function Person(name) {
         this.name = name;
@@ -12,4 +15,5 @@ var Person = /** @class */ (function () {
     };
     return Person;
 }());
-exports["default"] = Person;
+exports.Person = Person;
+exports.AAA = 999;

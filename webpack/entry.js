@@ -1,5 +1,4 @@
-import './js/171210_TypeScript/main';
+import './script/171210_TypeScript/main.ts';
 
-import Immutable from "immutable";
 
-console.log("完成")
+console.log("完成.........")

@@ -1,3 +1,6 @@
+/**
+ * person
+ */
 export default class Person{
     protected name:string;
     constructor(name:string){
@@ -12,4 +15,5 @@ export default class Person{
         console.log('我的名字叫999999： ', this.name);
     }
 }
+
 
