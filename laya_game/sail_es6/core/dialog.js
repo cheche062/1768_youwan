@@ -3,28 +3,28 @@
     let EVENT_REMOVED = Laya.Event.REMOVED;
 
     let DEFAULT_CONFIG = {
-        "isModal"     : true,       //是否是模式窗口
-        "closeOther"  : false,      //在弹窗模式为multiple时，是否在弹窗弹窗的时候关闭其他显示中的弹窗
-        "closeOnSide" : false,      //模式窗口点击遮罩，是否关闭窗口，默认是关闭的
-        "popupCenter" : true,       //指定对话框是否居中弹。 如果值为true，则居中弹出，否则，则根据对象坐标显示，默认为true。
-        "shadowAlpha" : 0.5,        //弹出框背景透明度
-        "shadowColor" : "#000000",  //弹出框背景颜色
-        "autoClose"   : false       //指定时间内自动关闭，单位为ms，默认不打开此功能
+        "isModal": true,       //是否是模式窗口
+        "closeOther": false,      //在弹窗模式为multiple时，是否在弹窗弹窗的时候关闭其他显示中的弹窗
+        "closeOnSide": false,      //模式窗口点击遮罩，是否关闭窗口，默认是关闭的
+        "popupCenter": true,       //指定对话框是否居中弹。 如果值为true，则居中弹出，否则，则根据对象坐标显示，默认为true。
+        "shadowAlpha": 0.5,        //弹出框背景透明度
+        "shadowColor": "#000000",  //弹出框背景颜色
+        "autoClose": false       //指定时间内自动关闭，单位为ms，默认不打开此功能
     };
-    let defaultPopupEffect = function(dialog){
+    let defaultPopupEffect = function (dialog) {
         dialog.scale(1, 1);
-        Laya.Tween.from(dialog, {x : Laya.stage.width / 2, y : Laya.stage.height / 2, scaleX : 0, scaleY : 0}, 300, Laya.Ease.backOut, Laya.Handler.create(this, function (dialog) {
+        Laya.Tween.from(dialog, { x: Laya.stage.width / 2, y: Laya.stage.height / 2, scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backOut, Laya.Handler.create(this, function (dialog) {
             dialog.onOpened && dialog.onOpened();
         }, [dialog]));
     };
-    let defaultCloseEffect = function(dialog){
-        Laya.Tween.to(dialog, {x : Laya.stage.width / 2, y : Laya.stage.height / 2, scaleX : 0, scaleY : 0}, 300, Laya.Ease.backIn, Laya.Handler.create(this, this.close, [dialog]));
+    let defaultCloseEffect = function (dialog) {
+        Laya.Tween.to(dialog, { x: Laya.stage.width / 2, y: Laya.stage.height / 2, scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backIn, Laya.Handler.create(this, this.close, [dialog]));
     };
     let defaultCloseHandler = function () {
-        if(this.closeEffect){
+        if (this.closeEffect) {
             this.closeEffect.runWith(this);
-        }else{
-            if(dialog.onClosed){
+        } else {
+            if (dialog.onClosed) {
                 dialog.onClosed();
             }
             !dialog.destroyed && dialog.destroy(true);
@@ -32,7 +32,7 @@
     }
 
     class DialogManager extends Laya.Box {
-        constructor (type) {
+        constructor(type) {
             super();
 
             this.maskLayer = null;
@@ -43,7 +43,7 @@
 
             this.init();
         }
-        destroy () {
+        destroy() {
             super.destroy.call(this, true);
             this.maskLayer = null;
             this.dialogType = null;
@@ -52,26 +52,26 @@
             this.closeEffect = null;
         }
 
-        init () {
+        init() {
             this.size(Laya.stage.width, Laya.stage.height);
 
             let maskLayer = new Laya.Sprite();
-                maskLayer.size(this.width, this.height);
-                maskLayer.name = this.maskLayerName;
-                maskLayer.on(Laya.Event.CLICK, this, this.closeFromMask);
+            maskLayer.size(this.width, this.height);
+            maskLayer.name = this.maskLayerName;
+            maskLayer.on(Laya.Event.CLICK, this, this.closeFromMask);
 
             this.maskLayer = maskLayer;
         }
-        centerDialog (dialog) {
+        centerDialog(dialog) {
             dialog.x = ((Laya.stage.width - dialog.width) / 2) + dialog.pivotX;
             dialog.y = ((Laya.stage.height - dialog.height) / 2) + dialog.pivotY;
         }
-        _checkMask () {
+        _checkMask() {
             this.maskLayer.removeSelf();
-            for (let i = this.numChildren - 1; i >- 1; i--){
+            for (let i = this.numChildren - 1; i > - 1; i--) {
                 let dialog = this.getChildAt(i);
-                
-                if (dialog && dialog.CONFIG.isModal){
+
+                if (dialog && dialog.CONFIG.isModal) {
                     this.maskLayer.graphics.clear();
                     this.maskLayer.graphics.drawRect(0, 0, this.width, this.height, dialog.CONFIG.shadowColor);
                     this.maskLayer.alpha = dialog.CONFIG.shadowAlpha;
@@ -81,33 +81,33 @@
             }
             this.visible = false;
         }
-        closeFromMask () {
+        closeFromMask() {
             let dialog = this.getChildAt(this.numChildren - 1);
-            
-            if(dialog.name !== this.maskLayerName && dialog.CONFIG.isModal && dialog.CONFIG.closeOnSide){
+
+            if (dialog.name !== this.maskLayerName && dialog.CONFIG.isModal && dialog.CONFIG.closeOnSide) {
                 this.close(dialog, true);
             }
         }
-        setup (dialog, config) {
-            if(config.isModal){
+        setup(dialog, config) {
+            if (config.isModal) {
                 this.maskLayer.graphics.clear();
                 this.maskLayer.graphics.drawRect(0, 0, this.width, this.height, config.shadowColor || "#000000");
 
                 this.maskLayer.alpha = config.shadowAlpha || 0.5;
             }
-            if(config.popupCenter != false){
+            if (config.popupCenter != false) {
                 this.centerDialog(dialog);
             }
-            if(config.closeOther){
+            if (config.closeOther) {
                 this.closeAll();
             }
-            if(config.autoClose){
+            if (config.autoClose) {
                 Laya.timer.once(config.autoClose, dialog, this.close, [dialog, true]);
             }
-            if(config.onOpened){
+            if (config.onOpened) {
                 dialog.onOpened = config.onOpened;
             }
-            if(config.onClosed){
+            if (config.onClosed) {
                 dialog.onClosed = config.onClosed;
             }
 
@@ -115,19 +115,19 @@
             dialog.onClosed.bind(dialog);
         }
 
-        getDialogsByGroup (group) {
-            if(!group){return null;}
+        getDialogsByGroup(group) {
+            if (!group) { return null; }
 
             let arr = [];
-            for (let i = this.numChildren - 1; i > -1; i--){
+            for (let i = this.numChildren - 1; i > -1; i--) {
                 let item = this.getChildAt(i);
-                if (item.group === group){
+                if (item.group === group) {
                     arr.push(item);
                 }
             }
             return arr;
         }
-        open (dialog, config) {
+        open(dialog, config) {
             Laya.timer.callLater(this, function () {
                 this.visible = true;
             });
@@ -136,58 +136,58 @@
             (this.dialogType == "single") && this.closeAll();
 
             this.setup(dialog, dialog.CONFIG);
-            
+
             (!dialog.popupEffect && dialog.popupEffect !== null) && (dialog.popupEffect = this.popupEffect);
             (!dialog.closeEffect && dialog.closeEffect !== null) && (dialog.closeEffect = this.closeEffect);
-            
+
             this.addChild(dialog);
             this._checkMask();
-            
-            if(dialog.popupEffect){
+
+            if (dialog.popupEffect) {
                 dialog.popupEffect.runWith(dialog);
-            }else if(dialog.onOpened){
+            } else if (dialog.onOpened) {
                 dialog.onOpened();
             }
         }
-        close (dialog, closeByEffect) {
-            if(dialog.closeEffect && closeByEffect){
+        close(dialog, closeByEffect) {
+            if (dialog.closeEffect && closeByEffect) {
                 dialog.closeEffect.runWith(dialog);
                 return;
             }
-            if(dialog.onClosed){
+            if (dialog.onClosed) {
                 dialog.onClosed();
             }
 
             !dialog.destroyed && dialog.destroy(true);
             dialog.CONFIG.isModal && this.callLater(this._checkMask);
         }
-        closeByGroup (group) {
-            if(!group){return;}
-            for (let i = this.numChildren - 1; i > -1; i--){
+        closeByGroup(group) {
+            if (!group) { return; }
+            for (let i = this.numChildren - 1; i > -1; i--) {
                 let item = this.getChildAt(i);
-                if(item.group == group){
+                if (item.group == group) {
                     // item.offAll(EVENT_REMOVED);
                     this.close(item);
                 }
             }
             this._checkMask();
         }
-        closeByName (name) {
-            if(!name){return;}
-            for (let i = this.numChildren - 1; i > -1; i--){
+        closeByName(name) {
+            if (!name) { return; }
+            for (let i = this.numChildren - 1; i > -1; i--) {
                 let item = this.getChildAt(i);
-                if(item.name == name){
+                if (item.name == name) {
                     this.close(item);
                     return;
                 }
             }
         }
-        closeAll () {
-            for (let i = this.numChildren - 1; i > -1; i--){
+        closeAll() {
+            for (let i = this.numChildren - 1; i > -1; i--) {
                 let item = this.getChildAt(i);
-                if(!item) {return;}
+                if (!item) { return; }
 
-                if(item.name === this.maskLayerName) {
+                if (item.name === this.maskLayerName) {
                     item.removeSelf();
                     continue;
                 }
@@ -195,16 +195,16 @@
                 this.close(item);
             }
         }
-        onResize (width, height) {
+        onResize(width, height) {
             this.size(width, height);
             this.maskLayer.size(width, height);
 
-            for (let i = this.numChildren - 1; i > -1; i--){
+            for (let i = this.numChildren - 1; i > -1; i--) {
                 let item = this.getChildAt(i);
-                if(item.name !== this.maskLayerName){
-                    if(item.CONFIG.popupCenter){
+                if (item.name !== this.maskLayerName) {
+                    if (item.CONFIG.popupCenter) {
                         this.centerDialog(item);
-                    }else{
+                    } else {
                         item.onResize && item.onResize(width, height);
                     }
                 }
