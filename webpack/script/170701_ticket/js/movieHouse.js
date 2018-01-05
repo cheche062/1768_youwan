@@ -25,7 +25,7 @@ class Seat extends React.Component{
 
 // 已选座位
 class Already extends React.Component{
-	constructor(...args){
+constructor(...args){
 		super(...args);
 
 	}
