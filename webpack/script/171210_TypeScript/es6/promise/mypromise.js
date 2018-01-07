@@ -139,29 +139,3 @@ new Promise(function(resolve, reject) {
     }, function() {
 
     })
-
-
-// 在第五条里如果说then是异步的， 那么：
-let p = new Promise((resolve, reject) => {
-    resolve("then");
-});
-setTimeout(() => {
-    console.log("Timeout");
-}, 0)
-p.then((value) => {
-    for (let i = 0; i < 100000; i++) {
-        console.log(value);
-    }
-})
-setTimeout(() => {
-    console.log("Timeout2");
-}, 0)
-
-//     100000 then
-// Timeout
-// Timeout2
-
-// 为何then中的耗时操作会阻塞定时器的执行？
-// 所以这里不太理解
-// 个人认为then是在是在本轮“ 事件循环” 最后执行， 并没有在等待队列里等待下一轮 "事件循环"
-// 再执行

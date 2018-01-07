@@ -13,9 +13,10 @@ module.exports = {
         loaders: [{
                 test: /\.css$/,
                 loader: 'style-loader!css-loader'
-            },{
+            }, {
                 test: /\.js$/,
                 loader: 'babel-loader',
+                // query: { presets: ['es2015'] },
                 exclude: /node_modules/ //排除项目
             },
             {
