@@ -1,5 +1,9 @@
-import './script/171210_TypeScript/es6/generator/test1'
+import b from './script/test/b'
+import c from './script/test/c'
 
+// console.log(b.name)
+// console.log(c.name)
 
-
-console.log("完成.........8888")
+// var fn = (...args) => {
+// 	console.log(args);
+// }

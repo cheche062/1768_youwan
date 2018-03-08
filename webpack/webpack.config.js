@@ -4,7 +4,7 @@ module.exports = {
         filename: 'bundle.js', //出口文件
         path: __dirname + '/dist'
     },
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
     devServer: {
         port: 8080,
         inline: true
@@ -14,7 +14,7 @@ module.exports = {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader'
             }, {
-                test: /\.js$/,
+                test: /\.js$/,  
                 loader: 'babel-loader',
                 // query: { presets: ['es2015'] },
                 exclude: /node_modules/ //排除项目
