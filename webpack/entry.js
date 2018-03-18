@@ -1,5 +1,5 @@
-import './script/171210_TypeScript/es6/generator/test1'
+import './script/180318_vueBothway/main.js'
 
 
 
-console.log("完成.........8888")
+console.log("完成.........88888")
