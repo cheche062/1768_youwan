@@ -26,7 +26,6 @@ function defineReactive(obj, key, val) {
 
             console.log('new value setted: ', newVal)
             val = newVal;
-            // childOb = observer(newVal)
             dep.notify();
         }
     })

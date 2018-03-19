@@ -1,3 +1,11 @@
+const path = require('path');
+
+// 打包成功的提示
+const WebpackNotifierPlugin = require('webpack-notifier');
+let plugins = [
+    new WebpackNotifierPlugin()
+];
+
 module.exports = {
     entry: './entry.js',
     output: {
@@ -6,9 +14,10 @@ module.exports = {
     },
     // devtool: 'inline-source-map',
     devServer: {
-        port: 8080,
+        port: 8088,
         inline: true
     },
+    plugins: plugins,
     module: {
         loaders: [{
                 test: /\.css$/,

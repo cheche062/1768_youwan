@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "save": "webpack",
-    "start": "webpack-dev-server --progress --inline --content-base"
+    "start": "webpack-dev-server --progress --inline --content-base --open"
   },
   "author": "",
   "license": "ISC",
@@ -21,7 +21,8 @@
     "style-loader": "^0.18.2",
     "thunkify": "^2.1.2",
     "ts-loader": "^3.2.0",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-notifier": "^1.6.0"
   },
   "dependencies": {
     "immutable": "^3.8.2",
