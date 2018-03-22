@@ -1,8 +1,8 @@
-var Rx = require('rxjs/Rx');
+const Rx = require('rxjs/Rx');
 
+let observable = Rx.Observable.interval(1000);
+let subscription = observable.subscribe(val => console.log(val));
 
-
-var observable = Rx.Observable.interval(1000);
-var subscription = observable.subscribe(x => console.log(x));
-
-// observer.subscribe(x => console.log(x))
+setTimeout(() => {
+    subscription.unsubscribe();
+}, 3100);

@@ -1,5 +1,9 @@
-// console.log('module b runs')
+const path = require('path');
 
-export default {
-  name: 'b'
-}
+
+// console.log(__dirname + '/dist')
+
+console.log(path.resolve('src'))
+console.log(path.resolve('./src'))
+console.log(path.resolve(__dirname, 'src'))
+console.log(path.resolve(__dirname, './src'))
