@@ -12,7 +12,7 @@ module.exports = {
         filename: 'bundle.js', //出口文件
         path: __dirname + '/dist'
     },
-    // devtool: 'inline-source-map',
+    devtool: 'inline-source-map',
     devServer: {
         port: 8088,
         inline: true
