@@ -1,6 +1,6 @@
 function timeout(who) {
     return new Promise(function (resolve, reject) {
-        var wait = Math.ceil(Math.random() * 4) * 1000;
+        var wait = Math.ceil(Math.random() * 3) * 1000;
         setTimeout(function () {
             if (Math.random() > 0.5) {
                 resolve(who + ' inner success');

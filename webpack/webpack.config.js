@@ -1,14 +1,23 @@
+const path = require('path');
+
+// 打包成功的提示
+const WebpackNotifierPlugin = require('webpack-notifier');
+let plugins = [
+    new WebpackNotifierPlugin()
+];
+
 module.exports = {
     entry: './entry.js',
     output: {
         filename: 'bundle.js', //出口文件
         path: __dirname + '/dist'
     },
-    // devtool: 'inline-source-map',
+    devtool: 'inline-source-map',
     devServer: {
-        port: 8080,
+        port: 8088,
         inline: true
     },
+    plugins: plugins,
     module: {
         loaders: [{
                 test: /\.css$/,
