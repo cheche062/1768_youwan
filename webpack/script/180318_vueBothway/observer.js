@@ -20,13 +20,12 @@ function defineReactive(obj, key, val) {
 
         set: (newVal) => {
             if (val === newVal) {
-                console.log('无需更新')
+                console.log('无需更新');
                 return;
             }
 
             console.log('new value setted: ', newVal)
             val = newVal;
-            // childOb = observer(newVal)
             dep.notify();
         }
     })

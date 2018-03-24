@@ -3,16 +3,18 @@ import Vue from './vue';
 let demo = new Vue({
     data: {
         name: 'cheche',
-        like: ['food', 'ball']
+        age: 18
     }
 })
 
-demo.$watch("name", (value) => {
-    console.log("【update view111】: ", value);
+let watch1 = demo.$watch("name", (value) => {
+    console.log("【update name 】: ", value);
+})
+demo.$watch("age", (value) => {
+    console.log("【update age 】: ", value);
 })
 
-
 demo.name = "meihao";
-demo.name = "meihao";
+demo.name = "uknow";
 
 console.log('main.js')

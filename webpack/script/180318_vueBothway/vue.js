@@ -11,11 +11,7 @@ export default class Vue {
     }
 
     $watch(expOrFn, cb) {
-        new Watcher(this, expOrFn, cb);
-    }
-
-    $recover(){
-
+        return new Watcher(this, expOrFn, cb);
     }
 
     _proxy(key) {

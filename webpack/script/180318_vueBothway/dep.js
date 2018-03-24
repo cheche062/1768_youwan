@@ -8,8 +8,11 @@ export default class Dep {
         this.subs = [];
     }
 
+    //添加订阅者
     addSub(sub) {
-        this.subs.push(sub);
+        if (!this.subs.includes(sub)) {
+            this.subs.push(sub);
+        }
     }
 
     notify() {
@@ -17,3 +20,5 @@ export default class Dep {
         this.subs.forEach(sub => sub.update());
     }
 }
+
+Dep.target = null;

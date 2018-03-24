@@ -1,6 +1,10 @@
 import Dep from './dep';
 
-
+/**
+ * 对数据的监听订阅者
+ *
+ * @class      Watcher (name)
+ */
 export default class Watcher {
     constructor(vm, expOrFn, cb) {
         this.vm = vm;
