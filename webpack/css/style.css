@@ -2,14 +2,22 @@ body {
     font-family: "微软雅黑";
     font-size: 20px;
 }
-.fl { float: left; }
-.fr { float: right; }
-.item{
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.item {
     width: 90%;
     height: 30px;
     background-color: #0f0;
     margin-bottom: 5px;
 }
-.done{
+
+.done {
     background-color: #f00;
 }
