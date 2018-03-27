@@ -12,6 +12,13 @@ function multiplyByTen(input) {
     return output;
 }
 
+
 var input = Rx.Observable.from([1, 2, 3, 4]);
 var output = multiplyByTen(input);
 output.subscribe(x => console.log(x));
+
+
+
+
+
+
