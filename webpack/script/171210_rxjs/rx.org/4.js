@@ -1,6 +1,5 @@
 import Rx from 'rxjs/Rx';
 
-
 function multiplyByTen(input) {
     var output = Rx.Observable.create(function(observer) {
         input.subscribe({

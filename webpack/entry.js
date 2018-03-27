@@ -1,5 +1,5 @@
 import './css/style.css'
-import './script/171210_rxjs/rx.org/8.js'
+import './script/171210_rxjs/rx.org/7.js'
 
 
 console.log("完成.........88888")

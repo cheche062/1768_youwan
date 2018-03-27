@@ -15,8 +15,9 @@ var cut$ = Rx.Observable.fromEvent($cut, 'click')
     .map(() => state => Object.assign({}, state, { count: state.count - 1 }))
 
 
-// 合并
-var app$ = Rx.Observable.merge(add$, cut$)
+// 合并(两种方式)
+// var app$ = Rx.Observable.merge(add$, cut$)
+var app$ = add$.merge(cut$)
     // 我们使用初始状态创建了一个对象。每当状态发生变化时，我们会接收到改变状态的函数，
     // 并把状态传递给它。然后返回新的状态并准备在下次点击后再次更改状态。
     .scan((state, changeFn) => changeFn(state), {count: 0})
