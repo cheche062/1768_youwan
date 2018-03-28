@@ -18,14 +18,13 @@ let subscriptionB = observable.subscribe(state => console.log('B: ', state))
 //数据并没有流进scan方法
 let subscriptionC = subject.subscribe(state => console.log('C: ', state))
 
-//数据流动
+//数据流动(从subject开始往下面流，经过scan)
 subject.next({count: 1})
 subject.next({name: "meihao"})
 
 // 取消订阅
 subscriptionB.unsubscribe();
 subject.next({count: 2})
-
 
 
 
