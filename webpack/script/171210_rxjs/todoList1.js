@@ -1,3 +1,8 @@
+import { setupRxDevtools } from 'rx-devtools/rx-devtools';
+import 'rx-devtools/add/operator/debug';
+setupRxDevtools();
+
+
 const Rx = require('rxjs/Rx');
 
 let $input = document.getElementById("todo-val");
@@ -9,7 +14,8 @@ let input$ = Rx.Observable.fromEvent($input, 'keydown')
 let clickAdd$ = Rx.Observable.fromEvent($button, 'click');
 
 //合并
-input$ = input$.merge(clickAdd$);
+input$ = input$.merge(clickAdd$)
+
 
 //创建子项
 const createTodoItem = (val) => {
@@ -22,6 +28,7 @@ const createTodoItem = (val) => {
 
 // 输入框文字添加item子项
 const item$ = input$
+    .debug('add')
     .map(() => $input.value)
     .filter(val => val !== "")
     .map(createTodoItem)
@@ -46,6 +53,7 @@ const toggle$ = item$
             $todoItem.classList.add('done')
         }
     })
+    
 
 // 删除按钮事件
 const remove$ = item$
@@ -57,6 +65,7 @@ const remove$ = item$
     .do($todoItem => {
         $todoItem.parentNode.removeChild($todoItem);
     })
+    
 
 const app$ = toggle$.merge(remove$)
     .do(val => console.log(val))

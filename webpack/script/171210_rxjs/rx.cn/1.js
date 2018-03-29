@@ -26,8 +26,6 @@ var clicks = Rx.Observable.fromEvent(document, 'click');
  */
 
 // var higherOrder = clicks.switchMap((ev) => Rx.Observable.interval(1000));
-// 结果是 `switched` 本质上是一个每次点击时会重新启动的计时器。
-// 之前点击产生的 interval Observables 不会与当前的合并。
 // higherOrder.subscribe(x => console.log(x));
 
 
@@ -37,6 +35,4 @@ var clicks = Rx.Observable.fromEvent(document, 'click');
  */
 
 var higherOrder = clicks.switchMapTo(Rx.Observable.interval(1000));
-// 结果是 `switched` 本质上是一个每次点击时会重新启动的计时器。
-// 之前点击产生的 interval Observables 不会与当前的合并。
 higherOrder.subscribe(x => console.log(x));
