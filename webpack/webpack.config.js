@@ -7,9 +7,10 @@ let plugins = [
 ];
 
 module.exports = {
-    entry: './entry.js',
+    entry: ['babel-polyfill', './entry.js'],
     output: {
         filename: 'bundle.js', //出口文件
+        publicPath: '/dist/',
         path: __dirname + '/dist'
     },
     devtool: 'inline-source-map',
