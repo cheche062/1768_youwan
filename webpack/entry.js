@@ -1,6 +1,6 @@
 
-// import './css/style.css'
-import './script/171210_rxjs/rx.demo/main.js'
+import './css/style.css'
+import './script/171210_rxjs/rx.demo/3.js'
 
 // import './script/171210_rxjs/todoList1.js'
 
