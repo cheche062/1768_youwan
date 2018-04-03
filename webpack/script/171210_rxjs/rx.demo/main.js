@@ -1,11 +1,6 @@
-// import { Observable } from 'rxjs/Rx';
-// import { getStream } from './1';
-
-
-
 function getData() {
     return new Promise((resolve, reject) => {
-        resolve('ok');
+        resolve('ok66666');
     })
 }
 
@@ -15,7 +10,6 @@ async function fetchData() {
 
     return data;
 }
-
 
 
 fetchData().then(val => console.log(val))

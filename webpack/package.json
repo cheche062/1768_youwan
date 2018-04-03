@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "save": "webpack --hide-modules --progress",
-    "start": "webpack-dev-server --inline --content-base --open"
+    "build": "webpack --hide-modules --progress -p",
+    "dev": "webpack -d",
+    "start": "webpack-dev-server --inline --content-base -d --open"
   },
   "author": "",
   "license": "ISC",
