@@ -21,3 +21,10 @@ body {
 .done {
     background-color: #f00;
 }
+
+#drag {
+    width: 100px;
+    height: 100px;
+    background-color: #f60;
+    position: absolute;
+}
