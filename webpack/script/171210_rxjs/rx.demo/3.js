@@ -13,12 +13,6 @@ example.subscribe({
 });*/
 
 
-var source = Rx.Observable.interval(1000).take(5);
-var of$ = Rx.Observable.of('888');
-
-source
-    .concat(of$)
-    .subscribe(console.log)
 
 
 mouseDown
@@ -37,11 +31,12 @@ mouseDown
     })
 
 
+// 留言者的问题
 mouseDown$
     .filter((e: any) => video.classList.contains('video-fixed'))
     .map((event: any) => mouseMove$.takeUntil(mouseUp$)
-    }
-).concatAll()
+    })
+.concatAll()
     .withLatestFrom(mouseDown$, (move: any, down: any) => {
         return {
             x: move.clientX - (down.clientX - down.target.getBoundingClientRect().left),
@@ -53,7 +48,7 @@ mouseDown$
         dragDom.style.top = pos.y + 'px'
     })
 
-
+// 小编解决方案
 mouseDown$
     .filter((e: any) => video.classList.contains('video-fixed'))
     .map((event: any) => mouseMove$.takeUntil(mouseUp$))
