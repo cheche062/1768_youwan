@@ -29,6 +29,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "immutable": "^3.8.2",
+    "jquery": "^3.3.1",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "rxjs": "^5.4.1"

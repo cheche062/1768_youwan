@@ -1,60 +1,62 @@
-let getTopRatedFilms = user =>
-    user.videoLists
-    .map(videoList =>
-        videoList.videos
-        .filter(video => video.rating === 5.0)
-    ).concatAll()
+import 'normalize.css';
+import Rx from 'rx';
+import { getRepos, getUser } from './helper';
+import { reposTemplate, userTemplate } from './templates';
+import '../css/base.css';
 
-getTopRatedFilms(currentUser)
-    .forEach(film => console.log(film))
+const showUserInfo = ($dom, data) => {
+    $dom.html(userTemplate(data));
+};
 
-
-let getElemenetDrags = el =>
-    el.mouseDowns
-    .map(mouseDown =>
-        document.mouseMoves.takeUntil(document.mouseUps)
-    )
-    .concatAll()
-
-getElementDrags(div).forEach(position => img.position = position)
-
-
-
-let search =
-    keyPresses
-    .debounce(250) // 原文是 throttle，但我个人认为原文写错了，我已经在 Twitter 上询问了演讲者，尚未得到回复
-    .map(key =>
-        getJSON('/search?q=' + input.value)
-        .retry(3)
-        .takeUntil(keyPresses)
-    )
-    .concatAll()
-search.forEach(
-    results => updateUI(results),
-    error => showMessage(error)
-)
-
-
-function play(movieId, cancelButton, callback){
-    let movieTicket
-    let playError
-    let tryFinish = () =>{
-        if(playError){
-            callback(null, playError)
-        }else if(movieTicket && player.initialized){
-            callback(null, movieTicket)
-        }
-    }
-    cancelButton.addEventListener('click', ()=>{ playError = 'cancel' })
-    if(!player.initialized){
-        player.init((error)=>{
-            playError = error
-            tryFinish()
+const userInfoSteam = ($repos) => {
+    const $avator = $repos.find('.user_header');
+    const avatorMouseoverObservable = Rx.Observable.fromEvent($avator, 'mouseover')
+        .debounce(500)
+        .takeWhile((e) => {
+            const $infosWrapper = $(e.target).parent().find('.user_infos_wrapper');
+            return $infosWrapper.find('.infos_container').length === 0;
         })
-    }
-    authorizeMovie(movieId, (error, ticket)=>{
-        playError = error
-        movieTicket = ticket
-        tryFinish()
-    })
-}
+        .map((e) => {
+            const $infosWrapper = $(e.target).parent().find('.user_infos_wrapper');
+            return {
+                conatiner: $infosWrapper,
+                url: $(e.target).attr('data-api')
+            }
+        })
+        .filter((data) => !!data.url)
+        .flatMapLatest(getUser)
+        .do((result) => {
+            const { data, conatiner } = result;
+            showUserInfo(conatiner, data);
+        });
+
+    return avatorMouseoverObservable;
+};
+
+$(() => {
+    const $conatiner = $('.content_container');
+    const $input = $('.search');
+    const observable = Rx.Observable.fromEvent($input, 'keyup')
+        .debounce(400)
+        .map(() => $input.val().trim())
+        .filter((text) => !!text)
+        .distinctUntilChanged()
+        .flatMapLatest(getRepos)
+        .do((results) => $conatiner.html(''))
+        .flatMap((results) => Rx.Observable.from(results))
+        .map((repos) => $(reposTemplate(repos)))
+        .do(($repos) => {
+            $conatiner.append($repos);
+        })
+        .flatMap(($repos) => {
+            return userInfoSteam($repos);
+        });
+
+    observable.subscribe(() => {
+        console.log('success');
+    }, (err) => {
+        console.log(err);
+    }, () => {
+        console.log('completed');
+    });
+});
