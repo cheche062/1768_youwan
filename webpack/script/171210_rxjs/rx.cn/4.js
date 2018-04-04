@@ -48,6 +48,7 @@ stream$.connect();*/
 
 
 // 暖 (惰性的热)
+// .publish()  等同于  .multicast(new Rx.Subject())
 /*let obs = Rx.Observable.interval(1000).take(3).publish().refCount();
 
 setTimeout(() => {

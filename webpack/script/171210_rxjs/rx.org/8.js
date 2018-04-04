@@ -78,14 +78,21 @@ class Observable {
 }
 
 let observable = new Observable(function(observer){
-    observer.next('bar')
+    observer.next(1)
+    observer.next(1)
+    observer.next(1)
 
     return //解除的方法
 })
 
 let subscribsion = observable
     .map(val => val + 1)
-    .subscribe(val => console.log(val))
+    .map(val => val + 1)
+    .subscribe({
+        next: console.log
+    })
 
 //解除
 subscribsion();
+
+console.log('8.js')
