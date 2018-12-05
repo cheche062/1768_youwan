@@ -16,7 +16,8 @@ export class MessageCenterModule {
         this.encryptedString = "";
         this.token = options.token;
         this.jwtToken = "";
-        this.endCallBack = options.endCallBack; //断开连接后的回调
+        /**断开连接后的回调*/
+        this.endCallBack = options.endCallBack; 
         this.unLoginCallBack = options.unLoginCallBack; //连接成功后如未登录时的回调
         this.logInfo = options.logInfo; // 打印信息
     }
